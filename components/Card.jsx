@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 const Card = ({ blog }) => {
     const router = useRouter()
     const toUpdateBlog=()=>{
-        router(`/editBlog/${blog.id}`)
+        router.push(`/UpdateBlog/${blog.id}`)
     }
 
     return (

@@ -22,4 +22,15 @@ const GET_BLOG = gql`
  }
 
 `
-export {GET_BLOGS, GET_BLOG}
+const SIGNIN_USER = gql`
+query($email:String!, $password:String!){ 
+  
+    users(where: {email: {_eq:$email}, password: {_eq:$password}}){
+      id
+      name
+    }
+  
+  
+}
+`
+export {GET_BLOGS, GET_BLOG, SIGNIN_USER}

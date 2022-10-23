@@ -17,7 +17,7 @@ const Blogs = () => {
 
   const toAddBlog=()=>{
     console.log('navigate')
-    // navigate('/addBlog')
+    router.push('/AddBlog')
   }
 
   // console.log(data.blogsList)
