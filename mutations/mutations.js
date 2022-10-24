@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 const ADD_BLOG = gql`
- mutation addBlog($title:String!, $description:String!){
-    insert_blogsList_one(object: {title:$title, description:$description}) {
+ mutation addBlog($title:String!, $description:String!,$user_id:Int!){
+    insert_blogsList_one(object: {title:$title, description:$description, user_id:$user_id}) {
         title
         description
       }

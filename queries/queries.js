@@ -28,9 +28,20 @@ query($email:String!, $password:String!){
     users(where: {email: {_eq:$email}, password: {_eq:$password}}){
       id
       name
+      email
     }
   
   
 }
 `
-export {GET_BLOGS, GET_BLOG, SIGNIN_USER}
+
+const USER_BLOGS = gql `
+ query($user_id:Int!){
+  blogsList(where: {user_id: {_eq: $user_id}}){
+    id
+    title
+    description
+  }
+}
+`
+export {GET_BLOGS, GET_BLOG, SIGNIN_USER, USER_BLOGS}

@@ -5,11 +5,14 @@ import { ADD_BLOG } from '../mutations/mutations';
 import { GET_BLOGS } from "../queries/queries";
 import { useRouter } from 'next/router';
 const AddBlog = () => {
+    let user = JSON.parse(localStorage.getItem("user"))
+    const user_id = user.id
+    // console.log(id)
     const router = useRouter();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [addBlog] = useMutation(ADD_BLOG,{
-        variables: {title, description},
+        variables: {title, description,user_id},
         refetchQueries: [
             { query: GET_BLOGS }
           ]

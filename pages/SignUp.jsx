@@ -2,6 +2,7 @@ import { useState } from 'react';
 import {useRouter} from 'next/router';
 import { useMutation } from '@apollo/client';
 import { REGISTER_USER } from '../mutations/mutations';
+import Link from 'next/link';
 const SignUp = () => {
     const router = useRouter()
     const [name, setName] = useState('');
@@ -91,12 +92,12 @@ const SignUp = () => {
                         </div> */}
                     </div>
 
-                    {/* <div className="text-grey-dark mt-6">
+                    <div className="text-grey-dark mt-6">
                         Already have an account?
-                        <Link className="no-underline border-b border-blue text-blue" to="/SignIn">
+                        <Link className="no-underline border-b border-blue text-blue" href="/SignIn">
                             Log in
                         </Link>.
-                    </div> */}
+                    </div>
                 </div>
             </div>
 

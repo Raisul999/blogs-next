@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Link, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
+import Link from "next/link";
 import { SIGNIN_USER } from "../queries/queries";
 import { useLazyQuery } from "@apollo/client";
 const SignIn = () => {
@@ -7,35 +8,41 @@ const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const  [login,{ data, error, loading }] = useLazyQuery(SIGNIN_USER,{
-        variables:{email, password}
+    const [login, { data, error, loading }] = useLazyQuery(SIGNIN_USER, {
+        variables: { email, password }
     })
-
-    const handleSubmit = async(e) => {
+    // console.log(data)
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        if(email===''){
+        if (email === '') {
             alert('Please enter your email')
             return
-        }else if(password===''){
+        } else if (password === '') {
             alert('Please enter your password')
             return
         }
         try {
             await Promise.all([login()])
             // console.log(result[0])
-            router.push('/Blogs')
+            if (data.users.length>0) {
+                localStorage.setItem("user", JSON.stringify(data.users[0]))
+                router.push('/Blogs')
+            } else {
+                alert("Credentials mismatch")
+            }
+
 
         } catch (error) {
-            alert(error)
+            alert("Credentials mismatch")
         }
     }
 
-     if(loading){
-        return <h3 className="text-center text-3xl">...Loading</h3>
-     }
-     if(error){
-        return <h3 className="text-center text-3xl">Something Went Wrong</h3>
-     }
+    //  if(loading){
+    //     return <h3 className="text-center text-3xl">...Loading</h3>
+    //  }
+    //  if(error){
+    //     return <h3 className="text-center text-3xl">Something Went Wrong</h3>
+    //  }
     return (
         <>
             <div className="bg-grey-lighter min-h-screen flex flex-col">
@@ -70,7 +77,15 @@ const SignIn = () => {
 
                     </div>
 
+                    <div className="text-grey-dark mt-6">
+                        Don't have an account?
+                        <Link className="no-underline border-b border-blue text-blue" href="/SignUp">
+                            Sign Up
+                        </Link>
+                    </div>
+
                 </div>
+
             </div>
 
         </>

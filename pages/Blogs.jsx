@@ -20,6 +20,7 @@ const Blogs = () => {
     router.push('/AddBlog')
   }
 
+
   // console.log(data.blogsList)
   return (
     <>
