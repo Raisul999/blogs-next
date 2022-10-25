@@ -1,11 +1,14 @@
 import Card from "../components/Card"
 import { useQuery } from "@apollo/client";
-import {GET_BLOGS} from "../queries/queries"
+import { GET_BLOGS } from "../queries/queries"
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 const Blogs = () => {
-
+  const isServer = () => typeof window === 'undefined'
   const router = useRouter()
 
+
+  console.log(isServer())
   const { data, error, loading } = useQuery(GET_BLOGS)
 
   if (loading) {
@@ -15,22 +18,12 @@ const Blogs = () => {
     return <h3 className="text-center text-3xl">Something Went Wrong</h3>
   }
 
-  const toAddBlog=()=>{
-    console.log('navigate')
-    router.push('/AddBlog')
-  }
 
 
   // console.log(data.blogsList)
   return (
     <>
-      <div className="mb-40">
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded float-right m-4"
-         onClick={toAddBlog}
-        >
-          Add Blog
-        </button>
-      </div>
+      
 
       {data.blogsList.length > 0 ? <div>
         {

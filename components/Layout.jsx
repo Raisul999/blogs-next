@@ -1,7 +1,15 @@
 import Header from "./Header";
-const Layout = ({children}) => (
+import dynamic from 'next/dynamic'
+
+const ComponentWithNoSSR = dynamic(
+    () => import('./Header'),
+    { ssr: false }
+)
+const Layout = ({ children }) => (
     <div>
-        <Header/>
+        <ComponentWithNoSSR>
+            <Header />
+        </ComponentWithNoSSR>
         {children}
     </div>
 

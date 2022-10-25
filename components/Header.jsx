@@ -1,12 +1,13 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
+
 const Header = () => {
     const router = useRouter()
-    // const user = JSON.parse(localStorage.getItem("user"))
-    // const handleLogout = () => {
-    //     localStorage.removeItem("user")
-    //     router.push("/SignIn")
-    // }
+    const user = JSON.parse(localStorage.getItem("user"))
+    const handleLogout = () => {
+        localStorage.removeItem("user")
+        router.push("/SignIn")
+    }
     return (
         <>
             <nav className="flex items-center justify-between flex-wrap bg-slate-900 p-6">
@@ -15,9 +16,9 @@ const Header = () => {
                     <span className="font-semibold text-xl tracking-tight">Travel Blogs</span>
                 </div>
                 <>
-                    {/* {user?<>
+                    {user?<>
                         <div className="text-white">
-                            <Link href="/Blogs">Blogs</Link>
+                            <Link href="/Blogs">Blogs</Link>&nbsp;&nbsp;&nbsp;
                             <Link href="/MyBlogs"> My Blogs</Link>
                         </div>
                         <div className="text-white">
@@ -29,7 +30,7 @@ const Header = () => {
                                 Logout
                             </button>
                         </div>
-                    </>:""} */}
+                    </>:""}
 
                 </>
 

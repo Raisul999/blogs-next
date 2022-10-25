@@ -24,6 +24,16 @@ const UPDATE_BLOG = gql`
 
 `
 
+const DELETE_BLOG = gql`
+mutation delete($id:Int!) {
+  delete_blogsList_by_pk(id:$id){
+    title
+    description
+  }
+}
+
+`
+
 const REGISTER_USER = gql`
 mutation register($name:String!, $email:String!, $password:String!){
   insert_users_one(object: {name: $name, email: $email, password: $password}){
@@ -34,4 +44,4 @@ mutation register($name:String!, $email:String!, $password:String!){
 }
 `
 
-export { ADD_BLOG, UPDATE_BLOG, REGISTER_USER }
+export { ADD_BLOG, UPDATE_BLOG, REGISTER_USER, DELETE_BLOG }

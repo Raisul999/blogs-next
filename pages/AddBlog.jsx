@@ -28,7 +28,7 @@ const AddBlog = () => {
         return;
       }
        const result = addBlog();
-       result.then((res)=>router.push('/'))
+       result.then((res)=>router.push('/MyBlogs'))
        .catch((err)=>alert(err.message))
     }
     return (

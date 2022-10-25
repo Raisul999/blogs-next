@@ -22,8 +22,8 @@ const SignIn = () => {
             return
         }
         try {
-            await Promise.all([login()])
-            // console.log(result[0])
+            await login()
+            // console.log(data)
             if (data.users.length>0) {
                 localStorage.setItem("user", JSON.stringify(data.users[0]))
                 router.push('/Blogs')
@@ -33,7 +33,7 @@ const SignIn = () => {
 
 
         } catch (error) {
-            alert("Credentials mismatch")
+            // alert("Credentials mismatch")
         }
     }
 

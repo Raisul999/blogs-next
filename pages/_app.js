@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }) {
     let isUser = JSON.parse(localStorage.getItem("user"))
     // checks if the user is authenticated
     isUser
-    ? router.push("/Blogs")
+    ? ""
     : router.push("/SignIn");
   }, []);
   
