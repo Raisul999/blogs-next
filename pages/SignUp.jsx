@@ -3,6 +3,7 @@ import {useRouter} from 'next/router';
 import { useMutation } from '@apollo/client';
 import { REGISTER_USER } from '../mutations/mutations';
 import Link from 'next/link';
+import {signIn} from "next-auth/react"
 const SignUp = () => {
     const router = useRouter()
     const [name, setName] = useState('');
@@ -20,15 +21,31 @@ const SignUp = () => {
             alert('Password mismatch');
             return
         }
-        try{
-            await Promise.all([register()])
-           // console.log(result[0])
-               router.push('/SignIn')
+
+    //    await signIn("credentials", {
+    //         name:name,
+    //         email: email,
+    //         password: password,
+    //         redirect:false
+    //     } )
+    //     try{
+    //         await Promise.all([register()])
+    //        // console.log(result[0])
+    //            router.push('/SignIn')
    
-       }catch(error){
-           alert("Email already registered")
-       }
+    //    }catch(error){
+    //        alert("Email already registered")
+    //    }
        
+      const res = await fetch('api/register',{
+        method: 'POST',
+        headers:{
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({name, email, password})
+      }).then(res=>res.json())
+
+      console.log(res)
     }
 
 

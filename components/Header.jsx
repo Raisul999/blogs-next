@@ -1,7 +1,10 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
+import {useSession } from "next-auth/react"
 
 const Header = () => {
+    const session = useSession()
+    console.log(session)
     const router = useRouter()
     const user = JSON.parse(localStorage.getItem("user"))
     const handleLogout = () => {

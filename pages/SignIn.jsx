@@ -3,14 +3,16 @@ import { useRouter } from 'next/router';
 import Link from "next/link";
 import { SIGNIN_USER } from "../queries/queries";
 import { useLazyQuery } from "@apollo/client";
+import {signIn} from "next-auth/react";
+
 const SignIn = () => {
     const router = useRouter()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const [login, { data, error, loading }] = useLazyQuery(SIGNIN_USER, {
-        variables: { email, password }
-    })
+    // const [login, { data, error, loading }] = useLazyQuery(SIGNIN_USER, {
+    //     variables: { email, password }
+    // })
     // console.log(data)
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -22,18 +24,27 @@ const SignIn = () => {
             return
         }
         try {
-            await login()
-            // console.log(data)
-            if (data.users.length>0) {
-                localStorage.setItem("user", JSON.stringify(data.users[0]))
-                router.push('/Blogs')
-            } else {
-                alert("Credentials mismatch")
-            }
+            // await login()
+            // if (data.users.length>0) {
+            //     localStorage.setItem("user", JSON.stringify(data.users[0]))
+            //     router.push('/Blogs')
+            // } else {
+            //     alert("Credentials mismatch")
+            // }
 
+            const res = await signIn("credentials",{
+                email:email,
+                password:password,
+                redirect:false
+            })
+
+            if(res.ok){
+                router.push('/Blogs')
+            }
+            
 
         } catch (error) {
-            // alert("Credentials mismatch")
+            alert("Credentials mismatch")
         }
     }
 

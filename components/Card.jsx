@@ -34,9 +34,7 @@ const Card = ({ blog, isMyBlog }) => {
 
     const [deleteBlog] = useMutation(DELETE_BLOG,{
         variables:{id},
-        refetchQueries: [
-            { query: USER_BLOGS }
-          ]
+        
     })
 
     const handleDeleteBlog=()=>{
