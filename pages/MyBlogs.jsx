@@ -3,23 +3,29 @@ import { useQuery } from "@apollo/client";
 import { USER_BLOGS } from "../queries/queries"
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 const MyBlogs = () => {
     // const isServer = () => typeof window === 'undefined';
     // console.log(isServer())
+    const router = useRouter()
+    const session = useSession();
     const [user_id, setUserId] = useState(null)
+    useEffect(()=>{
+      if(session.status==='unauthenticated'){
+        router.push("/SignIn")
+        return
+      }
+      if(session.status==='authenticated'){
+          setUserId(Number(session.data.id))
+      }
+    },[session.status])
+    
 
-    useEffect(() => {
-        if (JSON.parse(localStorage.getItem("user"))) {
-            let user = JSON.parse(localStorage.getItem("user"))
-            setUserId(user.id ? user.id : 0)
-        }
-       
-    }, [])
-
+   
     const isMyBlog = true
     // console.log(user_id)
 
-    const router = useRouter()
+    
 
     const { data, error, loading } = useQuery(USER_BLOGS, {
         variables: { user_id }

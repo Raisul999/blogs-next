@@ -38,6 +38,8 @@ const SignIn = () => {
                 redirect:false
             })
 
+            console.log(res)
+
             if(res.ok){
                 router.push('/Blogs')
             }

@@ -1,16 +1,28 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client';
 import { ADD_BLOG } from '../mutations/mutations';
 import { GET_BLOGS } from "../queries/queries";
 import { useRouter } from 'next/router';
+import { useSession } from "next-auth/react";
 const AddBlog = () => {
-    let user = JSON.parse(localStorage.getItem("user"))
-    const user_id = user.id
-    // console.log(id)
+   
     const router = useRouter();
+    const session = useSession();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [user_id, setUserId] = useState(null)
+
+    useEffect(()=>{
+      if(session.status==='unauthenticated'){
+        router.push("/SignIn")
+        return
+      }
+      if(session.status==='authenticated'){
+          setUserId(Number(session.data.id))
+      }
+    },[session.status])
+
     const [addBlog] = useMutation(ADD_BLOG,{
         variables: {title, description,user_id},
         refetchQueries: [
@@ -28,7 +40,10 @@ const AddBlog = () => {
         return;
       }
        const result = addBlog();
-       result.then((res)=>router.push('/MyBlogs'))
+       result.then((res)=>{
+        router.push('/MyBlogs')
+        window.location.reload()
+       })
        .catch((err)=>alert(err.message))
     }
     return (

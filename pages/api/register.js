@@ -6,14 +6,14 @@ export default async function (req, res) {
     console.log(email, password)
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(password, salt);
-    const match = bcrypt.compareSync(password, hash);
-     console.log(process.env.NEXT_PUBLIC_HASURA_SECRET)
+    // const match = bcrypt.compareSync(password, hash);
+    //  console.log(process.env.NEXT_PUBLIC_HASURA_SECRET)
     // console.log('hashed:',hash)
     // console.log('match', match)
     const endpoint = process.env.HASURA_PROJECT_ENDPOINT;
     const headers = {
         "content-type": "application/json",
-        "x-hasura-admin-secret": process.env.NEXT_PUBLIC_HASURA_SECRET
+        // "x-hasura-admin-secret": process.env.NEXT_PUBLIC_HASURA_SECRET
     };
     const graphqlQuery = {
         

@@ -1,11 +1,18 @@
-
-import { GraphQLWsLink } from "@apollo/client/link/subscriptions";
-import { createClient } from "graphql-ws";
-import { getMainDefinition } from "@apollo/client/utilities";
 import Blogs from "./Blogs"
-
+import { useEffect } from "react"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/router"
 export default function Home() {
  
+  const { data: session, status } = useSession()
+  const router = useRouter()
+  useEffect(() => {
+     if(status!=="authenticated"){
+      router.push('/SignIn')
+     }else{
+      router.push('/')
+     }
+  },[])
 
   return (
    
